@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"errors"
+	"os"
+	"testing"
+)
 
 func TestNewDeck(t *testing.T) {
 	d := newDeck()
@@ -16,4 +20,27 @@ func TestNewDeck(t *testing.T) {
 	if (d[len(d)-1] != "King of Diamonds") {
 		t.Errorf("Expected first card to be King of Diamonds but got %v", d[0])
 	}
+}
+
+func TestSaveFileAndTestLoadFile(t *testing.T) {
+	// Delete old files first
+	err := os.Remove("_decktesting")
+
+	if (err != nil && !errors.Is(err, os.ErrNotExist)) {
+		t.Error(err)
+	} 
+
+	d := newDeck()
+	d.save("_decktesting")
+	deck := read("_decktesting")
+
+	if (len(deck) != 52) {
+		t.Error("Error in reading file")
+	}
+
+	err = os.Remove("_decktesting")
+
+	if (err != nil) {
+		t.Error("Unable to delete testing files after testing")
+	} 
 }
