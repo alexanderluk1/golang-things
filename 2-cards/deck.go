@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"strings"
 )
@@ -51,6 +52,13 @@ func read(path string) (deck) {
 		os.Exit(1)
 	}
 	convertedStr := string(bs)
-	
+
 	return deck(strings.Split(convertedStr, ","))
+}
+
+func (d deck) shuffle() {
+	for i := range d {
+		randIndex := rand.Intn(len(d)-1)
+		d[i], d[randIndex] = d[randIndex], d[i]
+	}
 }
