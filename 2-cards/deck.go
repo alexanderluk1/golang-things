@@ -44,10 +44,13 @@ func (d deck) save(location string) error {
 } 
 
 func read(path string) (deck) {
-	data, err := os.ReadFile(path)
+	bs, err := os.ReadFile(path)
 
 	if (err != nil) {
 		log.Fatal(err)
+		os.Exit(1)
 	}
-	return deck{string(data)}
+	convertedStr := string(bs)
+	
+	return deck(strings.Split(convertedStr, ","))
 }
