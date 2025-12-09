@@ -6,14 +6,14 @@ func main() {
 	colors := map[string]string {
 		"red": "ff0000",
 		"green": "1250ja",
+		"white": "55501a",
 	}
 
-	emptyColor := make(map[string]string)
-	emptyColor["white"] = "ff00000"
-	emptyColor["green"] = "ff19519"
+	printMap(colors)
+}
 
-	delete(emptyColor, "white")
-
-	fmt.Println(colors)
-	fmt.Println(emptyColor)
+func printMap(c map[string]string) {
+	for key, value := range c {
+		fmt.Printf("Key: %s, Value: %s\n", key, value)
+	}
 }
